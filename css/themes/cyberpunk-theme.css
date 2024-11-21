@@ -1,14 +1,111 @@
 :root {
-    --background-color: #0d0221;
+    /* Core colors */
+    --background-color: #0a0b1e;
     --text-color: #ff2a6d;
-    --header-background: #1b1b3a;
-    --menu-hover-background: rgba(255, 42, 109, 0.1);
+    --header-background: rgba(26, 27, 60, 0.9);
+    --menu-hover-background: rgba(255, 42, 109, 0.2);
     --menu-active-color: #05ffa1;
     --logo-gradient-start: #ff2a6d;
     --logo-gradient-end: #05ffa1;
     --button-background: #ff2a6d;
-    --button-color: #0d0221;
+    --button-color: #0a0b1e;
+    --button-hover-background: #ff1a5d;
     --link-color: #05ffa1;
+    --link-hover-color: #00e890;
     --border-color: #ff2a6d;
     --footer-text-color: #ff2a6d;
+    
+    /* Enhanced glowing effects */
+    --neon-pink: #ff2a6d;
+    --neon-blue: #0ff;
+    --neon-green: #05ffa1;
+}
+
+/* Cyberpunk background with grid */
+body {
+    background: 
+        linear-gradient(to bottom, rgba(10, 11, 30, 0.9), rgba(26, 27, 60, 0.9)),
+        linear-gradient(90deg, var(--neon-pink) 1px, transparent 1px) 0 0,
+        linear-gradient(var(--neon-pink) 1px, transparent 1px) 0 0;
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    animation: backgroundPulse 4s infinite;
+}
+
+/* Enhanced nav buttons */
+.menu a {
+    background: rgba(255, 42, 109, 0.1);
+    border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 5px var(--neon-pink);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu a:hover {
+    background: rgba(255, 42, 109, 0.2);
+    box-shadow: 
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink),
+        0 0 40px var(--neon-pink);
+    transform: translateY(-2px);
+}
+
+/* Glowing elements */
+.logo {
+    text-shadow: 
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink),
+        0 0 40px var(--neon-blue);
+}
+
+.standard-container {
+    background: rgba(10, 11, 30, 0.9);
+    box-shadow: 
+        inset 0 0 10px var(--neon-pink),
+        0 0 15px rgba(255, 42, 109, 0.5);
+}
+
+.primary-button {
+    border: 1px solid var(--neon-pink);
+    box-shadow: 
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Cool animations */
+@keyframes backgroundPulse {
+    0%, 100% { background-color: rgba(10, 11, 30, 0.9); }
+    50% { background-color: rgba(26, 27, 60, 0.9); }
+}
+
+/* Header enhancement */
+header {
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+/* Text glow effects */
+h1, h2 {
+    color: var(--text-color);
+    text-shadow: 
+        0 0 5px var(--neon-pink),
+        0 0 10px var(--neon-pink);
+}
+
+/* Links glow effect */
+a:not(.logo-link) {
+    font-weight: 500;
+    text-shadow: 0 0 2px var(--neon-green);
+}
+
+a:not(.logo-link):hover {
+    text-shadow: 
+        0 0 5px var(--neon-green),
+        0 0 10px var(--neon-green),
+        0 0 15px var(--neon-green);
 }

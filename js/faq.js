@@ -47,6 +47,26 @@ document.addEventListener('DOMContentLoaded', () => {
             throw new Error('Failed to fetch FAQ data');
         }
     }
+
+    function handleUrlHash() {
+        const hash = window.location.hash;
+        if (hash) {
+            const faqId = hash.replace('#faq-', '');
+            const faqElement = document.querySelector(`[data-faq-id="${faqId}"]`);
+            if (faqElement) {
+                const faqItem = faqElement.closest('.faq-item');
+                const question = faqItem.querySelector('.faq-question');
+                const answer = faqItem.querySelector('.faq-content');
+
+                // Scroll to the element
+                faqItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Open the question
+                answer.classList.remove('hidden');
+                question.querySelector('.toggle-icon').textContent = '-';
+            }
+        }
+    }
     
     // Render FAQ content with enhanced formatting
     function renderFAQ(faqData, categoriesData) {
@@ -205,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoriesData = categories;
             console.log('Data received:', { faqData, categoriesData });
             renderFAQ(faqData, categoriesData);
+            handleUrlHash();
         })
         .catch(error => {
             loadingDiv.style.display = 'none';
@@ -269,10 +290,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     const metadata = `
                         <div class="faq-metadata">
-                            <button class="version-history-btn" data-faq-id="${faq.id}">
-                                <span class="version-badge">v${faq.version}</span>
-                                <span class="last-updated"><i class="fas fa-clock"></i> ${new Date(faq.lastUpdated).toLocaleDateString()}</span>
+                            <button class="version-history-btn" data-faq-id="${faq.id || ''}">
+                                <span class="version-badge">v${faq.version || '1.0'}</span>
+                                <span class="last-updated"><i class="fas fa-clock"></i> ${faq.lastUpdated ? new Date(faq.lastUpdated).toLocaleDateString() : 'N/A'}</span>
                                 <span class="history-icon"><i class="fas fa-history"></i></span>
+                            </button>
+                            <button class="copy-link-btn" data-faq-id="${faq.id || ''}">
+                                <i class="fas fa-link"></i> Copy Link
                             </button>
                         </div>
                     `;
@@ -317,6 +341,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>There are no results for this search. Please try again using different keywords.</p>
                 </div>
             `;
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.copy-link-btn')) {
+            const faqId = e.target.closest('.copy-link-btn').dataset.faqId;
+            const url = `${window.location.origin}${window.location.pathname}#faq-${faqId}`;
+
+            navigator.clipboard.writeText(url).then(() => {
+                const button = e.target.closest('.copy-link-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            });
         }
     });
         
