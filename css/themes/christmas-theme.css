@@ -1,0 +1,121 @@
+:root {
+    --background-color: #0a1f2b;
+    --text-color: #ffffff;
+    --header-background: #061218;
+    --menu-hover-background: rgba(200, 20, 20, 0.15);
+    --menu-active-color: #ff1f1f;
+    --logo-gradient-start: #ff1f1f;
+    --logo-gradient-end: #00ff7f;
+    --button-background: #ff1f1f;
+    --button-color: #ffffff;
+    --button-hover-background: #ff4040;
+    --link-color: #ff1f1f;
+    --link-hover-color: #00ff7f;
+    --border-color: #00ff7f;
+    --footer-text-color: #90EE90;
+}
+
+/* Enhanced logo with Christmas lights effect */
+.logo {
+    text-shadow: 0 0 15px #ff3333, 0 0 30px #4CAF50;
+    animation: christmasLights 4s infinite;
+}
+
+@keyframes christmasLights {
+    0% { text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333; }
+    25% { text-shadow: 0 0 10px #4CAF50, 0 0 20px #4CAF50; }
+    50% { text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333; }
+    75% { text-shadow: 0 0 10px #4CAF50, 0 0 20px #4CAF50; }
+    100% { text-shadow: 0 0 10px #ff3333, 0 0 20px #ff3333; }
+}
+
+/* Menu and navigation enhancements */
+.menu a {
+    transition: all 0.3s ease;
+}
+
+.menu a:hover {
+    text-shadow: 0 0 12px #ff3333;
+    transform: scale(1.05);
+    background: linear-gradient(90deg, var(--menu-hover-background), transparent);
+    border-left: 3px solid var(--link-color);
+}
+
+.wiki-nav a:hover {
+    background: linear-gradient(90deg, var(--menu-hover-background), transparent);
+    border-left: 3px solid var(--link-color);
+}
+
+/* Snowflake styling */
+.snowflake {
+    color: #fff;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+    font-size: 1.5em;
+    font-family: Arial, sans-serif;
+    position: fixed;
+    top: -10%;
+    animation: fall linear infinite;
+}
+
+.snowflake:after {
+    content: '❆';
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Scrollbar theming */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff3333, #4CAF50);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ff6b6b, #66bb6a);
+}
+
+/* Interactive elements */
+.button {
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    box-shadow: 0 0 15px rgba(255, 69, 69, 0.5);
+    transform: scale(1.05);
+}
+
+.faq-question:hover {
+    background: linear-gradient(45deg, var(--background-color), var(--menu-hover-background));
+}
+
+/* Logo link decoration */
+.logo-link::after {
+    content: '🎄';
+    margin-left: 0px;
+    font-size: 3.5em;
+    animation: christmasLights 4s infinite;
+}
+
+/* Additional festive hover effects */
+.wiki-nav a:hover {
+    text-shadow: 0 0 8px #ff3333;
+}
+
+.menu a.active {
+    border-left: 3px solid #4CAF50;
+    background: linear-gradient(90deg, rgba(76, 175, 80, 0.15), transparent);
+}

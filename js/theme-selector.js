@@ -4,7 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
     themeStylesheet.rel = 'stylesheet';
     document.head.appendChild(themeStylesheet);
 
-    // Theme hint animation logic
+    const THEME_VERSION = '2.0';
+    const savedThemeVersion = localStorage.getItem('themeVersion');
+    
+    if (!savedThemeVersion || savedThemeVersion !== THEME_VERSION) {
+        localStorage.setItem('selectedTheme', 'main-site');
+        localStorage.setItem('themeVersion', THEME_VERSION);
+    }
+
     const themeHint = document.querySelector('.theme-hint');
     if (!localStorage.getItem('themeHintSeen')) {
         themeHint.classList.add('flash-animation');
@@ -32,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pumpkinContainer.style.zIndex = '-1';
         document.body.appendChild(pumpkinContainer);
 
-        const numPumpkins = 15;
+        const numPumpkins = 25;
         const pumpkinSize = 40;
         const minDistance = 70;
         const positions = [];
@@ -80,10 +87,59 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function addChristmasDecorations() {
+        const decorContainer = document.createElement('div');
+        decorContainer.id = 'christmas-decorations';
+        decorContainer.style.position = 'absolute';
+        decorContainer.style.width = '100%';
+        decorContainer.style.height = '100%';
+        decorContainer.style.pointerEvents = 'none';
+        decorContainer.style.zIndex = '-1';
+        document.body.appendChild(decorContainer);
+    
+        // Create more snowflakes with varied sizes and speeds
+        for (let i = 0; i < 100; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            
+            // Randomize starting positions across entire width
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            
+            // Vary the sizes
+            const size = Math.random() * 0.5 + 0.5; // 0.5 to 1em
+            snowflake.style.fontSize = `${size}em`;
+            
+            // Vary the speeds and delays
+            const duration = Math.random() * 8 + 4; // 4-12 seconds
+            const delay = Math.random() * -20; // Negative delay for continuous effect
+            
+            snowflake.style.animationDuration = `${duration}s`;
+            snowflake.style.animationDelay = `${delay}s`;
+            
+            // Vary opacity
+            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+            
+            // Add animation loop
+            snowflake.addEventListener('animationend', () => {
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                snowflake.style.animationDelay = '0s';
+            });
+            
+            decorContainer.appendChild(snowflake);
+        }
+    }
+
     function removeRandomPumpkins() {
         const pumpkinContainer = document.getElementById('halloween-pumpkins');
         if (pumpkinContainer) {
             pumpkinContainer.remove();
+        }
+    }
+
+    function removeChristmasDecorations() {
+        const decorContainer = document.getElementById('christmas-decorations');
+        if (decorContainer) {
+            decorContainer.remove();
         }
     }
 
@@ -95,10 +151,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         localStorage.setItem('selectedTheme', theme);
         
+        // Remove all theme decorations first
+        removeRandomPumpkins();
+        removeChristmasDecorations();
+        
+        // Add specific theme decorations
         if (theme === 'halloween') {
             addRandomPumpkins();
-        } else {
-            removeRandomPumpkins();
+        } else if (theme === 'christmas') {
+            addChristmasDecorations();
         }
         
         themeSelects.forEach(select => {
@@ -119,6 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedTheme) {
         setTheme(savedTheme);
     } else {
-        setTheme('halloween');
+        setTheme('main-site');
     }
 });
